@@ -404,6 +404,7 @@ module.exports = {
           </ul>
         </section>
         <section>
+          <h3>Hello World</h3>
           <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
 var express = require('express');
 
@@ -417,8 +418,10 @@ app.listen(8000);
 
 console.log("Server running at http://127.0.0.1:8000/");
           </code></pre>
+          <p>response sending text/html</p>
         </section>
         <section>
+          <h3>JSON</h3>
           <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
 var express = require('express');
 
@@ -434,6 +437,7 @@ app.listen(8000);
 
 console.log("Server running at http://127.0.0.1:8000/");
           </code></pre>
+          <p>response sending json</p>
         </section>
         <section>
           <h2>Routes</h2>
@@ -443,6 +447,7 @@ console.log("Server running at http://127.0.0.1:8000/");
           </ul>
         </section>
         <section>
+          <h3>Basic Routing</h3>
           <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
 // respond with "Hello World!"
 app.get('/', function (req, res) {
@@ -474,6 +479,7 @@ app.delete('/user/:id', function (req, res) {
           </ul>
         </section>
         <section>
+          <h3>mounting middleware everywhere</h3>
           <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
 var app = express();
 
@@ -487,6 +493,7 @@ app.use(logRequests);
           </code></pre>
         </section>
         <section>
+          <h3>mounting middleware to paths</h3>
           <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
 var app = express();
 
