@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>reveal.js - The HTML Presentation Framework</title>
+  <title>BDiuguid | node-intro</title>
 
   <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
   <!-- <meta name="author" content="Hakim El Hattab"> -->
@@ -14,6 +14,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link type="image/x-icon" rel="icon" href="favicon.ico">
+  <link type="image/x-icon" rel="shortcut icon" href="favicon.ico">
 
   <link rel="stylesheet" href="css/reveal.min.css">
   <link rel="stylesheet" href="css/theme/default.css" id="theme">
@@ -130,11 +133,11 @@ console.log( '"customevent" has fired' );
         <h1>Agenda</h1>
         <ul>
           <li>Why node.js?</li>
-          <li>Node JavaScript Runtime Basics</li>
-          <!-- <li>Express</li> -->
-          <!-- <li>Persistence Options</li> -->
+          <li>JavaScript Background</li>
+          <li>Node Basics</li>
+          <li>Express</li>
           <!-- <li>Realtime Apps with Socket.io</li> -->
-          <li>Sharing Code and Culture with the Client with Browserify</li>
+          <li>Browserify</li>
           <li>Further Reading</li>
         </ul>
       </section>
@@ -173,26 +176,101 @@ console.log( '"customevent" has fired' );
 
       <section>
         <section>
+          <h1>Javascript polyfill</h1>
+        </section>
+        <section>
+          <h2>Closures</h2>
+        </section>
+        <section>
+          <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
+function init () {
+    var numbers = [ 1, 2, 4, 8, 16, 32 ];
+
+    return {
+        addEntry: function () {
+            numbers.push( 2^numbers.length );
+        },
+        get: function (n) {
+            if( n < numbers.length ) {
+                return numbers[n];
+            }
+        }
+    };
+}
+
+var powersOfTwo = init();
+
+console.log( powersOfTwo.get(5) ); // 32
+
+powersOfTwo.addEntry();
+console.log( powersOfTwo.get(6) ); // 64
+          </code></pre>
+        </section>
+        <section>
+          <h2>Callbacks</h2>
+        </section>
+        <section>
+          <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
+function callback () {
+    console.log("done");
+}
+
+function doStuffAsync (func) {
+    // doing something like ajax call to load some file.
+    func();
+}
+
+doStuffAsync(callback);
+// logs "done" after its done loading file. (might take a few seconds)
+          </code></pre>
+        </section>
+        <section>
+          <h2>Promises</h2>
+        </section>
+        <section>
+          <p>The ugly callback way.</p>
+          <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
+getUser("Domenic", function (err, user) {
+    if (err) {
+        ui.error(err);
+    } else {
+        getBestFriend(user, function (err, friend) {
+            if (err) {
+                ui.error(err);
+            } else {
+                ui.showBestFriend(friend);
+            }
+        });
+    }
+});
+          </code></pre>
+        </section>
+        <section>
+          <p>The Promise Way.</p>
+          <p>Each promise returns a promise. Every promise has a then method.</p>
+          <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
+then(fulfilledHandler, errorHandler, progressHandler)
+
+getUser("Domenic")
+    .then(getBestFriend, ui.error)
+    .then(ui.showBestFriend, ui.error);
+          </code></pre>
+        </section>
+      </section>
+
+      <section>
+        <section>
           <h1>node.js basics</h1>
         </section>
         <section>
           <h2>What is node.js?</h2>
           <ul>
-            <li>powered by Google's v8 JavaScript runtime</li>
+            <li>Powered by Google's v8 JavaScript runtime engine</li>
             <li>Event driven</li>
             <li>Non-blocking, asynchronous standard libraries</li>
-            <!-- <li>Most APIs speak <a href="http://strongloop.com/strongblog/practical-examples-of-the-new-node-js-streams-api/">Streams</a></li> -->
-            <!-- <li>Extensible via C/C++ add-ons</li> -->
             <li>Provides a package manager and module system for JS/native extensions</li>
           </ul>
         </section>
-        <!-- <section>
-                        <h2>What node is not</h2>
-                        <ul>
-                            <li>A framework like Django or Rails</li>
-                            <li>A new programming language</li>
-                        </ul>
-                    </section> -->
         <section>
           <h2>Interactive Mode</h2>
           <ul>
@@ -206,35 +284,30 @@ console.log( '"customevent" has fired' );
             <li>Async by default</li>
             <li>Low level</li>
             <li>HTTP is first class citizen</li>
-            <li>[Demo - hello world]</li>
           </ul>
         </section>
         <section>
           <h2>Hello World</h2>
-          <pre><codedata-trim contenteditable style="font-size: 18px;">
+          <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
 var http = require('http');
 
 var server = http.createServer(function (request, response) {
   response.writeHead(200, {"Content-Type": "text/html"});
 
-  console.log("request received.");
-
-  response.end("&lt;h1&rt;Hello World&lt;/h1&rt;");
+  response.end("&lt;h1&gt; Hello World &lt;/h1&gt;");
 });
 
 server.listen(8000);
 
 console.log("Server running at http://127.0.0.1:8000/");
-
           </code></pre>
         </section>
         <section>
           <h2>Developing and Debugging</h2>
           <ul>
             <li>Lots of different choices</li>
-            <li>nodemon / grunt</li>
-            <li>node-inspector / webstorm (step-through debugging)</li>
-            <li>[Demo - and debugging]</li>
+            <li>taskrunners (nodemon | grunt | gulp)</li>
+            <li>step-through debugging (node-inspector | webstorm) </li>
           </ul>
         </section>
         <section>
@@ -244,28 +317,80 @@ console.log("Server running at http://127.0.0.1:8000/");
             <li>grabs all modules all at once. within an app, each module is like a singleton.</li>
             <li>[Demo - logger module]</li>
           </ul>
-
         </section>
         <section>
-          <h2>npm</h2>
+          <p>app.js</p>
+          <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
+var logger = require('./logger');
+
+logger.info("info");
+logger.dir({ prop1: 1, prop2: 2 });
+logger.bad("error");
+          </code></pre>
+          <p>logger.js</p>
+          <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
+// or exports = ...
+module.exports = {
+    info: function (data) {
+        console.log(data);
+    },
+    dir: function (data) {
+        cosole.dir(data);
+    },
+    bad: function (data) {
+        console.err(data);
+    }
+};
+          </code></pre>
+        </section>
+        <section>
+          <h2><a href="www.npmjs.org">npm</a></h2>
           <ul>
             <li>node's package manager</li>
             <li>handles and resolves dependencies</li>
-            <li>~60,000 modules available today (easy to publish)</li>
+            <li>100,000 modules available today (easy to publish)</li>
             <li>[Demo - npm init]</li>
           </ul>
         </section>
+        <section>
+          <h3><a href="www.npmjs.org/doc/files/package.json.html">package.json</a></h1>
+          <pre><code class="json" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
+{
+  "name": "dream",
+  "version": "0.0.1",
+  "main": "server/app.js",
+  "dependencies": {
+    "async": "^0.9.0",
+    "cookie-parser": "~1.0.1",
+    "express": "~4.0.0",
+    "express-jwt": "^0.1.3",
+    "express-session": "^1.0.4",
+    "ldapjs": "~0.7.1",
+    "lodash": "~2.4.1",
+    "mssql": "^1.2.0",
+    "socket.io": "^1.0.6",
+  },
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-karma": "~0.8.2",
+    "jshint-stylish": "~0.1.5",
+    "connect-livereload": "~0.4.0",
+    "karma": "~0.12.9",
+    "supertest": "~0.11.0",
+    "should": "~3.3.1"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "start": "node server/app.js",
+    "test": "grunt test",
+  }
+}
+          </code></pre>
+        </section>
       </section>
 
-      <!-- <section>
-        <h1>Challenge One</h1>
-        <p>and</p>
-        <h1>Challenge Two</h1>
-        <p>
-          <a href="http://github.com/kwhinnery/node-workshop">get the code</a>
-        </p>
-      </section>
-       -->
       <section>
         <section>
           <h1>Routing and templating with express</h1>
@@ -273,7 +398,6 @@ console.log("Server running at http://127.0.0.1:8000/");
         <section>
           <h2>Express at a high level</h2>
           <ul>
-            <li>Based on Connect (a bit like Rack)</li>
             <li>De facto standard framework of node web apps</li>
             <li>Minimalistic, unopinionated</li>
             <li>Supports a variety of middleware</li>
@@ -343,7 +467,7 @@ console.log("Server running at http://127.0.0.1:8000/");
 
       <section>
         <h2>Questions?</h2>
-        <p><a href="http://bdiuguid.github.io/sub-pages/node-intro">bdiuguid.github.io/sub-pages/node-intro</a></p>
+        <p>bdiuguid.github.io/sub-pages/node-intro</p>
         <p>bendiuguid@gmail.com | <a href="http://twitter.com/bdiuguid">@bdiuguid</a></p>
       </section>
 
