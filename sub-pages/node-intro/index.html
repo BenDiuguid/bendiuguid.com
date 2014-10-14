@@ -135,8 +135,8 @@ console.log( '"customevent" has fired' );
           <li>JavaScript Background</li>
           <li>Node Basics</li>
           <li>Express</li>
-          <!-- <li>Realtime Apps with Socket.io</li> -->
-          <li>Browserify</li>
+          <li>Realtime Apps with Socket.io</li>
+          <!-- <li>Browserify</li> -->
           <li>Further Reading</li>
         </ul>
       </section>
@@ -168,6 +168,7 @@ console.log( '"customevent" has fired' );
             <li><a href="http://gruntjs.com" target="_blank">Grunt</a></li>
             <li><a href="http://bower.io" target="_blank">Bower</a></li>
             <li><a href="http://yeoman.io" target="_blank">Yeoman</a></li>
+            <li><a href="http://ngrok.com" target="_blank">ngrok</a></li>
             <li>Executables</li>
           </ul>
         </section>
@@ -403,6 +404,38 @@ module.exports = {
           </ul>
         </section>
         <section>
+          <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
+var express = require('express');
+
+var app = express();
+
+app.get('/', function(request, response) {
+    response.send('hello world from express!');
+});
+
+app.listen(8000);
+
+console.log("Server running at http://127.0.0.1:8000/");
+          </code></pre>
+        </section>
+        <section>
+          <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
+var express = require('express');
+
+var app = express();
+
+app.get('/', function(request, response) {
+    response.send({ 
+        foo: 'bar' 
+    });
+});
+
+app.listen(8000);
+
+console.log("Server running at http://127.0.0.1:8000/");
+          </code></pre>
+        </section>
+        <section>
           <h2>Routes</h2>
           <ul>
             <li>Respond to HTTP requests with a callback</li>
@@ -411,20 +444,150 @@ module.exports = {
         </section>
         <section>
           <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
+// respond with "Hello World!"
+app.get('/', function (req, res) {
+  res.send('Hello World!')
+});
 
+// accept POST request
+app.post('/', function (req, res) {
+  res.send('Got a POST request')
+});
+
+// accept PUT request
+app.put('/user/:id', function (req, res) {
+  res.send('Got a PUT request at /user')
+});
+
+// accept DELETE request
+app.delete('/user/:id', function (req, res) {
+  res.send('Got a DELETE request at /user')
+});
           </code></pre>
         </section>
         <section>
           <h2>Middleware</h2>
           <ul>
-            <li>Some useful built in middleware (like bodyParser)</li>
+            <li>Some useful built in middleware</li>
             <li>Useful for preprocessing requests</li>
             <li>Authentication/Authorization</li>
           </ul>
         </section>
+        <section>
+          <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
+var app = express();
+
+// a middleware with no mount path; gets executed for every request to the app
+function logRequests (req, res, next) {
+  console.log('Time:', Date.now());
+  next();
+};
+
+app.use(logRequests);
+          </code></pre>
+        </section>
+        <section>
+          <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
+var app = express();
+
+// a middleware with no mount path; gets executed for every request to the app
+function logRequests (req, res, next) {
+  console.log('Time:', Date.now());
+  next();
+};
+
+app.get('/user', logRequests, function (req, res, next) {
+  res.send('USER');
+});
+          </code></pre>
+        </section>
+        <section>
+          <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
+
+          </code></pre>
+        </section>
       </section>
 
       <section>
+        <section>
+          <h1>Socket.IO</h1>
+        </section>
+        <section>
+            <h2>Socket.io at a high level</h2>
+            <ul>
+                <li>Thin wrapper around <a href="http://www.html5rocks.com/en/tutorials/websockets/basics/" target="_blank">WebSockets</a></li>
+                <li>Works in tandem with an HTTP Server</li>
+                <li>Documentation: less than awesome, <a href="https://github.com/learnboost/socket.io/wiki" target="_blank">wiki is better</a> than site</li>
+            </ul>
+        </section>
+        <section>
+          <h2>Key Features</h2>
+          <ul>
+            <li>Client/Server Push</li>
+            <li>Broadcast</li>
+            <li>Client "session" information</li>
+            <li>Message namespaces</li>
+            <li>Plain ol' WebSockets API as well</li>
+          </ul>
+        </section>
+        <section>
+          <h2>[demo - ngrok socket.io]</h2>
+        </section>
+        <section>
+          <p>Front End</p>
+          <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
+var socket = io.connect();
+
+socket.on('chat', function (data) {
+    var msg = data.nick+': ' + data.message;
+    $('textarea').val( $('textarea').val() + msg + '\n' );
+});
+
+// Handle UI
+$(function() {
+    // Set nickname
+    $('#nick').on('click', function() {
+        socket.emit( 'nick', $('#nickText').val() );
+    });
+
+    // Send chat message
+    $('#chat').on('click', function() {
+        socket.emit('chat', {
+            message:$('#chatText').val()
+        });
+    });
+});
+          </code></pre>
+        </section>
+        <section>
+          <p>Server Side</p>
+          <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
+io.sockets.on('connection', function (socket) {
+    
+    // Set the nickname property for a given client
+    socket.on('nick', function(nick) {
+        socket.set('nickname', nick);
+    });
+
+    // Relay chat data to all clients
+    socket.on('chat', function(data) {
+        socket.get('nickname', function(err, nick) {
+            var nickname = err ? 'Anonymous' : nick;
+
+            var payload = {
+                message: data.message,
+                nick: nickname
+            };
+
+            io.sockets.emit('chat', payload)
+        });
+    });
+});
+          </code></pre>
+        </section>
+      </section>
+
+      <!-- <section>
         <section>
           <h1>Sharing Code and Culture with Browserify</h1>
         </section>
@@ -453,7 +616,7 @@ module.exports = {
             <li>Source Maps</li>
           </ul>
         </section>
-      </section>
+      </section> -->
 
       <section>
         <h2>More Exercises and Reinforcement</h2>
