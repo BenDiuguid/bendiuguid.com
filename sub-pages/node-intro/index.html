@@ -449,25 +449,24 @@ console.log("Server running at http://127.0.0.1:8000/");
         <section>
           <h3>Basic Routing</h3>
           <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
-// respond with "Hello World!"
-app.get('/', function (req, res) {
-  res.send('Hello World!')
-});
+// app.js
+var express = require('express');
+var app = express();
+require('./routes')(app);
 
-// accept POST request
-app.post('/', function (req, res) {
-  res.send('Got a POST request')
-});
+// routes.js
+module.exports = function(app) {
+  
+    app.use('/api/things', require('./api/thing'));
+    
+    // All undefined asset or api routes should return a 404
+    app.route('/badlink').get(require('./components/errors'));
 
-// accept PUT request
-app.put('/user/:id', function (req, res) {
-  res.send('Got a PUT request at /user')
-});
-
-// accept DELETE request
-app.delete('/user/:id', function (req, res) {
-  res.send('Got a DELETE request at /user')
-});
+    // All other routes should redirect to the index.html
+    app.route('/').get(function(req, res) {
+        res.sendfile(app.get('appPath') + '/index.html');
+    });
+};
           </code></pre>
         </section>
         <section>
@@ -535,6 +534,7 @@ var auth = function (req, res, next) {
           </code></pre>
         </section>
         <section>
+          <h3>Mounting</h3>
           <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; max-height: 500px;">
 // mounted everywhere
 app.use(auth);
