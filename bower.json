@@ -1,0 +1,15 @@
+{
+  "name": "bdiuguid.github.io",
+  "version": "0.0.0",
+  "homepage": "http://bdiuguid.github.io",
+  "authors": [
+    "Ben Diuguid <Bendiuguid@gmail.com>"
+  ],
+  "description": "bdiuguid",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "~3.2.0"
+  }
+}
