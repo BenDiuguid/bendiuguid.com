@@ -10,81 +10,132 @@
 
     <title>BDiuguid</title>
 
-    <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+    <!-- <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'> -->
 
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="stylesheets/main.css">
+    <script src="bower_components/materialize/dist/css/materialize.min.css"></script>
+    <!-- <link rel="stylesheet" href="css/main.css"> -->
   </head>
 
   <body>
-    <!-- Navbar -->
-    <div class="navbar navbar-default navbar-static-top">
+    <nav class="light-blue lighten-1">
       <div class="container">
-        <div class="navbar-header">
-          <button class="navbar-toggle" type="button">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-
-          <a href="https://twitter.com/BenDiuguid" target="_blank" class="navbar-brand">@bendiuguid</a>
-        </div>
-        <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
-
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="sub-pages/node-intro/index.html">Node-Intro</a></li>
-            <li><a href="#">Coming Soon</a></li>
+        <div class="nav-wrapper"><a id="logo-container" href="https://twitter.com/BenDiuguid" target="_blank" class="brand-logo">@bendiuguid</a>
+          <ul id="nav-mobile" class="right side-nav">
+            <li><a target="_blank" href="/node-intro/index.html">NodeJS Intro</a></li>
           </ul>
-
+          <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
         </div>
       </div>
-    </div>
-    <!-- /Navbar -->
-
-    <header class="hero-unit" id="banner">
-        <div class="container">
-            <h1>BenDiuguid's Github Page</h1>
-
-            <p class="lead">More Content Coming Soon! :)</p>
+    </nav>
+    <div class="section no-pad-bot" id="index-banner">
+      <div class="container">
+        <br><br>
+        <h1 class="header center orange-text">BenDiuguid's GitHub Page</h1>
+        <div class="row center">
+          <h5 class="header col s12 light">More Content Coming Soon! :)</h5>
         </div>
-        <!-- <paper-ripple fit opacityDecayVelocity="0.8" initialOpacity="0.5"></paper-ripple> -->
-    </header>
+
+        <br />
+
+      </div>
+    </div>
 
 
     <div class="container">
-      <div class="row">
+      <div class="section">
 
-        <div class="col-sm-8">
-          <h2>Stephen Benjamin Diuguid</h2>
+        <!--   Icon Section   -->
+        <div class="row">
 
-          <p class="lead">
-            <p>I am a Christian</p>
-            <p>I am a Drummer</p>
-            <p>I am a programmer</p>
-            <p>I Love JavaScript</p>
-            <p>I Love Functional Programming</p>
-            <p>I am a very passionate person</p>
-          </p>
-          <h4>More Info Coming soon...</h4>
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center light-blue-text"><i class="mdi-social-group"></i></h2>
+              <h5 class="center">Follow Me On Twitter</h5>
 
-        </div>
-
-        <div class="col-sm-3 col-sm-offset-1">
-          <div class="sidebar-module">
-
-            <ul class="list-group">
-              <li class="list-group-item"><a href="https://twiter.com/BenDiuguid">My Twitter</a></li>
-              <li class="list-group-item"><a href="https://github.com/bdiuguid">My GitHub</a></li>
-              <li class="list-group-item"><a href="sub-pages/node-intro/">Node-Intro</a></li>
-            </ul>
+              <p class="light">I'm active on Twitter compared to other social media outlets.</p>
+            </div>
           </div>
-        </div>
 
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center light-blue-text"><i class="mdi-social-group"></i></h2>
+              <h5 class="center">Fork Me On GitHub</h5>
+
+              <p class="light">Still pretty fresh to GitHub but I love it!</p>
+            </div>
+          </div>
+
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center light-blue-text"><i class="mdi-social-group"></i></h2>
+              <h5 class="center">Add Me On Facebook</h5>
+
+              <p class="light">I'm fairly active on Facebook.</p>
+            </div>
+          </div>
+
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center light-blue-text"><i class="mdi-social-group"></i></h2>
+              <h5 class="center">Add Me to your Circles on Google Plus</h5>
+
+              <p class="light">On google Plus semi-often for random information.</p>
+            </div>
+          </div>
+
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center light-blue-text"><i class="mdi-social-group"></i></h2>
+              <h5 class="center">Follow Me On InstaGram</h5>
+
+              <p class="light">InstaGram the Twitter of Photo Sharing.</p>
+            </div>
+          </div>
+
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center light-blue-text"><i class="mdi-social-group"></i></h2>
+              <h5 class="center">Connect With Me On LinkedIn</h5>
+
+              <p class="light">Let's sync up because you never know who could be the next Prodigy.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <br />
+
+      <div class="section">
 
       </div>
     </div>
 
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <footer class="orange">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Ben Diuguid</h5>
+            <p class="grey-text lighten-4">I am an crazy passionate person who loves Jesus, playing drums, and all things JavaScript. I have done many side projects (examples to come), and if you would like to reach out to me feel free to at any time!</p>
+          </div>
+          <div class="col l6 s12">
+            <h5 class="white-text">Connect</h5>
+            <h6 class="white-text"><a target="_top" href="mailto:bendiuguid@gmail.com">BenDiuguid@gmail.com</a></h5>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          &copy; 2014 | Powered by <a class="orange-text lighten-3" target="_blank" href="https://twitter.com/BenDiuguid">@bendiuguid</a>
+        </div>
+      </div>
+    </footer>
+
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="bower_components/materialize/dist/js/materialize.min.js"></script>
+    <script src="js/init.js"></script>
+
   </body>
 </html>
