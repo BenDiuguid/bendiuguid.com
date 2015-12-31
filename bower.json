@@ -1,7 +1,7 @@
 {
-  "name": "bdiuguid.github.io",
+  "name": "bendiuguid.github.io",
   "version": "0.0.0",
-  "homepage": "http://bdiuguid.github.io",
+  "homepage": "http://bendiuguid.github.io",
   "authors": [
     "Ben Diuguid <Bendiuguid@gmail.com>"
   ],
@@ -10,7 +10,6 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "bootstrap": "~3.2.0",
-    "materialize": "~0.93.1"
+    "materialize": "~0.97.5"
   }
 }
