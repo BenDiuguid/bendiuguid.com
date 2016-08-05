@@ -2,4 +2,4 @@ bendiuguid.github.io
 ==================
 
 
-BenDiuguid GitHub Pages
+Ben Diuguid's GitHub Pages
