@@ -1,3 +1,10 @@
+const loadStyle = url => {
+  const font = document.createElement('link');
+  font.rel = 'stylesheet';
+  font.href = url;
+  document.body.appendChild(font);
+};
+
 const main = () => {
   // Load custom tracking code lazily, so it's non-blocking.
   // Replace `./analytics` with either of the following if using one of the
@@ -7,6 +14,7 @@ const main = () => {
   import('./analytics/base.js').then(analytics => analytics.init());
 
   // Initate all other code paths here...
+  loadStyle('//fonts.googleapis.com/css?family=Ubuntu');
 };
 
 // Start the app through its main entry point.
