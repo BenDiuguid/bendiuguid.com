@@ -1,0 +1,16 @@
+{
+  "name": "Ben Diuguid",
+  "short_name": "Ben Diuguid",
+  "start_url": "/",
+  "description": "Ben Diuguid's personal website",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#3f51b5",
+  "icons": [
+    {
+      "src": "/assets/img/fire-emoji.png",
+      "type": "image/png",
+      "sizes": "240x240"
+    }
+  ]
+}
