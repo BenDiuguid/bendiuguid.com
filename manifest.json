@@ -11,6 +11,11 @@
       "src": "/assets/img/fire-emoji.png",
       "type": "image/png",
       "sizes": "240x240"
+    },
+    {
+      "src":"/assets/img/drums-min.jpg",
+      "type": "image/png",
+      "sizes": "4032x3024"
     }
   ]
 }
