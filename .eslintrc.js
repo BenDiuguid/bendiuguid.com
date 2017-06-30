@@ -2,11 +2,12 @@ module.exports = {
   parser: 'babel-eslint',
   env: {
     browser: true,
+    node: true,
   },
   parserOptions: {
     allowImportExportEverywhere: true,
   },
-  plugins: ['meteor', 'import', 'react'],
+  plugins: ['import', 'react'],
   extends: ['eslint:recommended', 'prettier'],
   rules: {
     'no-unused-vars': 'off',

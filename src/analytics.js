@@ -1,10 +1,3 @@
-// Import the individual autotrack plugins you want to use.
-import 'autotrack/lib/plugins/clean-url-tracker';
-import 'autotrack/lib/plugins/max-scroll-tracker';
-import 'autotrack/lib/plugins/outbound-link-tracker';
-import 'autotrack/lib/plugins/page-visibility-tracker';
-import 'autotrack/lib/plugins/url-change-tracker';
-
 /* global ga */
 
 /**
@@ -39,7 +32,6 @@ const dimensions = {
   HIT_TYPE: 'dimension6',
   HIT_SOURCE: 'dimension7',
   VISIBILITY_STATE: 'dimension8',
-  URL_QUERY_PARAMS: 'dimension9',
 };
 
 /**
@@ -49,9 +41,6 @@ const metrics = {
   RESPONSE_END_TIME: 'metric1',
   DOM_LOAD_TIME: 'metric2',
   WINDOW_LOAD_TIME: 'metric3',
-  PAGE_VISIBLE: 'metric4',
-  MAX_SCROLL_PERCENTAGE: 'metric5',
-  PAGE_LOADS: 'metric6',
 };
 
 /**
@@ -65,7 +54,7 @@ export const init = () => {
   createTracker();
   trackErrors();
   trackCustomDimensions();
-  requireAutotrackPlugins();
+  sendInitialPageview();
   sendNavigationTimingMetrics();
 };
 
@@ -128,7 +117,7 @@ const trackErrors = () => {
   };
 
   // Replay any stored load error events.
-  for (let event of loadErrorEvents) {
+  for (const event of loadErrorEvents) {
     trackErrorEvent(event);
   }
 
@@ -174,33 +163,10 @@ const trackCustomDimensions = () => {
 };
 
 /**
- * Requires select autotrack plugins and initializes each one with its
- * respective configuration options.
+ * Sends the initial pageview to Google Analytics.
  */
-const requireAutotrackPlugins = () => {
-  ga('require', 'cleanUrlTracker', {
-    stripQuery: true,
-    queryDimensionIndex: getDefinitionIndex(dimensions.URL_QUERY_PARAMS),
-    trailingSlash: 'remove',
-  });
-  ga('require', 'maxScrollTracker', {
-    sessionTimeout: 30,
-    timeZone: 'America/Los_Angeles',
-    maxScrollMetricIndex: getDefinitionIndex(metrics.MAX_SCROLL_PERCENTAGE),
-  });
-  ga('require', 'outboundLinkTracker', {
-    events: ['click', 'contextmenu'],
-  });
-  ga('require', 'pageVisibilityTracker', {
-    sendInitialPageview: true,
-    pageLoadsMetricIndex: getDefinitionIndex(metrics.PAGE_LOADS),
-    visibleMetricIndex: getDefinitionIndex(metrics.PAGE_VISIBLE),
-    timeZone: 'America/Los_Angeles',
-    fieldsObj: { [dimensions.HIT_SOURCE]: 'pageVisibilityTracker' },
-  });
-  ga('require', 'urlChangeTracker', {
-    fieldsObj: { [dimensions.HIT_SOURCE]: 'urlChangeTracker' },
-  });
+const sendInitialPageview = () => {
+  ga('send', 'pageview', { [dimensions.HIT_SOURCE]: 'pageload' });
 };
 
 /**
@@ -212,7 +178,7 @@ const sendNavigationTimingMetrics = () => {
   if (!(window.performance && window.performance.timing)) return;
 
   // If the window hasn't loaded, run this function after the `load` event.
-  if (document.readyState != 'complete') {
+  if (document.readyState !== 'complete') {
     window.addEventListener('load', sendNavigationTimingMetrics);
     return;
   }
@@ -242,13 +208,6 @@ const sendNavigationTimingMetrics = () => {
     });
   }
 };
-
-/**
- * Accepts a custom dimension or metric and returns it's numerical index.
- * @param {string} definition The definition string (e.g. 'dimension1').
- * @return {number} The definition index.
- */
-const getDefinitionIndex = definition => +/\d+$/.exec(definition)[0];
 
 /**
  * Generates a UUID.
