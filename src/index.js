@@ -1,15 +1,24 @@
 import { h, Component } from 'preact';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import {
+  faYoutube,
+  faMedium,
+  faTwitter,
+  faGithub,
+} from '@fortawesome/fontawesome-free-brands';
 import './index.css';
 
-const Link = ({ url, imgUrl, altText }) =>
+const Link = ({ url, icon, altText }) => (
   <a
     style="text-decoration: none; padding: 0 20px;"
     href={url}
     target="_blank"
     rel="noopener"
   >
-    <img src={imgUrl} alt={altText} height="48" width="48" />
-  </a>;
+    <FontAwesomeIcon icon={icon} className="my-icon" size="3x" />
+    {/* <img src={icon} alt={altText} height="48" width="48" /> */}
+  </a>
+);
 
 const loadFont = url => {
   const font = document.createElement('link');
@@ -34,22 +43,22 @@ export default class App extends Component {
           <div>
             <Link
               url="https://github.com/BenDiuguid"
-              imgUrl="assets/icons/github.svg"
+              icon={faGithub}
               altText="GitHub logo"
             />
             <Link
               url="https://medium.com/@BenDiuguid"
-              imgUrl="assets/icons/medium.svg"
+              icon={faMedium}
               altText="Medium logo"
             />
             <Link
               url="https://twitter.com/BenDiuguid"
-              imgUrl="assets/icons/twitter.svg"
+              icon={faTwitter}
               altText="Twitter logo"
             />
             <Link
               url="https://www.youtube.com/user/bendiuguid"
-              imgUrl="assets/icons/youtube-play.svg"
+              icon={faYoutube}
               altText="YouTube logo"
             />
           </div>

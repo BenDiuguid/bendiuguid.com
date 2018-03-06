@@ -13,3 +13,7 @@ body {
 * {
   box-sizing: border-box;
 }
+
+.my-icon {
+  color: white;
+}
