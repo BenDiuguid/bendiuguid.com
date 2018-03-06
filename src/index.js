@@ -14,9 +14,9 @@ const Link = ({ url, icon, altText }) => (
     href={url}
     target="_blank"
     rel="noopener"
+    aria-label={altText}
   >
     <FontAwesomeIcon icon={icon} className="my-icon" size="3x" />
-    {/* <img src={icon} alt={altText} height="48" width="48" /> */}
   </a>
 );
 
