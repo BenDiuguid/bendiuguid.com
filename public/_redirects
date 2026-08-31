@@ -1,0 +1,8 @@
+# Go Links
+/go/youtube    https://www.youtube.com/bendiuguid    302
+
+# Fallback for unmatched /go/* paths -> redirect to homepage
+/go/*          /                                     302
+
+# SPA fallback
+/*             /index.html                           200
