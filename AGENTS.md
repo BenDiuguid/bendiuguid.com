@@ -8,7 +8,7 @@
 
 - **Framework**: React 18.3.1 bundled with Vite 6.
 - **Package Manager**: `pnpm` (v11).
-- **Node Runtime**: Node.js >=20 (configured via `.node-version` for `fnm` and Netlify, and `"engines"` in `package.json`).
+- **Node Runtime**: Node.js >=22.13 (configured via `.node-version: 22` for `fnm` and Netlify, and `"engines"` in `package.json`).
 - **Styling**: Inline CSS styles with minimal global styles in `src/index.css`.
 - **Icons**: FontAwesome v6 (`@fortawesome/react-fontawesome`, `@fortawesome/free-brands-svg-icons`, `@fortawesome/fontawesome-svg-core`).
 - **Typography**: Google Fonts ("Ubuntu") loaded via preconnected `<link>` in `index.html`.
@@ -28,7 +28,7 @@
 ```
 .
 ├── .gitignore
-├── .node-version         # Node version target (20) for fnm and Netlify
+├── .node-version         # Node version target (22) for fnm and Netlify
 ├── index.html            # Vite HTML entry point with GA4 script & Google Fonts
 ├── package.json          # Project metadata, scripts, and dependencies
 ├── pnpm-lock.yaml        # pnpm lockfile
