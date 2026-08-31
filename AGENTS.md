@@ -4,51 +4,56 @@
 
 `bendiuguid.com` is the repository for Ben Diuguid's personal single-page website, hosted at [https://bendiuguid.com](https://bendiuguid.com).
 
-## Current Architecture & Tech Stack
+## Architecture & Tech Stack
 
-- **Framework**: React 17.0.2 bootstrapped with Create React App (`react-scripts` 5.0.1).
+- **Framework**: React 18.3.1 bundled with Vite 6.
+- **Package Manager**: `pnpm` (v11).
+- **Node Runtime**: Node.js >=20 (configured via `.node-version` for `fnm` and Netlify, and `"engines"` in `package.json`).
 - **Styling**: Inline CSS styles with minimal global styles in `src/index.css`.
-- **Icons**: FontAwesome (`@fortawesome/react-fontawesome`, `@fortawesome/fontawesome-free-brands`, `@fortawesome/fontawesome-svg-core`).
-- **Typography**: Google Fonts ("Ubuntu") loaded dynamically via `webfontloader`.
-- **Analytics & Performance**: Google Analytics (GA4 tag `G-YJM6EJ94YT`) loaded via `public/index.html` and reporting metrics via `web-vitals` (`src/analytics.js`).
-- **Testing**: Jest + `@testing-library/react` configured by `react-scripts`.
+- **Icons**: FontAwesome v6 (`@fortawesome/react-fontawesome`, `@fortawesome/free-brands-svg-icons`, `@fortawesome/fontawesome-svg-core`).
+- **Typography**: Google Fonts ("Ubuntu") loaded via preconnected `<link>` in `index.html`.
+- **Analytics & Performance**: Google Analytics (GA4 tag `G-YJM6EJ94YT`) loaded via `index.html` and reporting metrics via `web-vitals` v4 (`src/analytics.js`).
+- **Testing**: Vitest + `@testing-library/react` + `@testing-library/jest-dom` in `jsdom` environment.
 
 ## Deployment & Hosting
 
 - **Platform**: Netlify (continuous deployment connected to Git repo).
 - **Trigger**: Push to `master` branch.
-- **Build Command**: `npm run build`
-- **Publish Directory**: `build`
-- **Functions Directory**: `netlify/functions` (configured default)
+- **Build Command**: `npm run build` or `pnpm build` (Netlify auto-detects `pnpm-lock.yaml`).
+- **Publish Directory**: `build` (configured in `vite.config.js` via `build.outDir: 'build'`).
+- **Functions Directory**: `netlify/functions` (configured default).
 
 ## Project Structure
 
 ```
 .
 ├── .gitignore
-├── .nvmrc               # Node version target (historically 14)
-├── package.json         # Project metadata and dependencies
-├── package-lock.json
-├── public/              # Static HTML template and public assets
-│   ├── drums.jpg        # Hero background image
+├── .node-version         # Node version target (20) for fnm and Netlify
+├── index.html            # Vite HTML entry point with GA4 script & Google Fonts
+├── package.json          # Project metadata, scripts, and dependencies
+├── pnpm-lock.yaml        # pnpm lockfile
+├── pnpm-workspace.yaml   # pnpm approved build scripts
+├── public/               # Public assets served as static files
+│   ├── drums.jpg         # Hero background image
 │   ├── favicon.ico
-│   ├── index.html       # HTML entry point with GA4 script
 │   ├── logo192.png
 │   ├── manifest.json
 │   └── robots.txt
-├── src/                 # Application source code
-│   ├── App.js           # Main landing component
-│   ├── App.test.js      # Unit test
-│   ├── analytics.js     # Web vitals to GA4 sender
-│   ├── index.css        # Base reset styles
-│   ├── index.js         # React DOM render root
+├── src/                  # Application source code
+│   ├── App.jsx           # Main landing component
+│   ├── App.test.jsx      # Unit test
+│   ├── analytics.js      # Web vitals to GA4 sender
+│   ├── index.css         # Base reset styles
+│   ├── index.jsx         # React 18 DOM render root (createRoot)
 │   ├── reportWebVitals.js
 │   └── setupTests.js
+├── vite.config.js        # Vite & Vitest configuration
 └── README.md
 ```
 
 ## Available Scripts
 
-- `npm start`: Runs the development server.
-- `npm run build`: Bundles the application for production output into the `build/` directory.
-- `npm test`: Runs the test suite in interactive watch mode.
+- `pnpm dev` (or `pnpm start`): Starts the Vite development server.
+- `pnpm build`: Bundles the application for production output into the `build/` directory.
+- `pnpm preview`: Locally previews the production build.
+- `pnpm test`: Runs the Vitest test suite.

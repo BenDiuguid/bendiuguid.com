@@ -1,12 +1,10 @@
-import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faYoutube,
   faMedium,
   faTwitter,
   faGithub,
-} from "@fortawesome/fontawesome-free-brands";
-import WebFont from "webfontloader";
+} from "@fortawesome/free-brands-svg-icons";
 
 const Link = ({ url, icon, altText }) => (
   <a
@@ -24,14 +22,6 @@ const Link = ({ url, icon, altText }) => (
 );
 
 function App() {
-  useEffect(() => {
-    WebFont.load({
-      google: {
-        families: ["Ubuntu"],
-      },
-    });
-  }, []);
-
   return (
     <div
       style={{
@@ -40,7 +30,8 @@ function App() {
         justifyContent: "center",
         alignItems: "center",
         height: "100%",
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('${process.env.PUBLIC_URL}/drums.jpg')`,
+        backgroundImage:
+          "linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/drums.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center center",
       }}
